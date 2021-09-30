@@ -1,5 +1,6 @@
 import eksempelklasser.*;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -10,24 +11,17 @@ public class Program {
     public static void main(String[] args) throws IOException
     {
 
-        Student[] s = new Student[5];                             // en studenttabell
-        s[0] = new Student("Kari","Svendsen", Studium.Data);      // Kari Svendsen
-        s[1] = new Student("Boris","Zukanovic", Studium.IT);      // Boris Zukanovic
-        s[2] = new Student("Ali","Kahn", Studium.Anvendt);        // Ali Kahn
-        s[3] = new Student("Azra","Zukanovic", Studium.IT);       // Azra Zukanovic
-        s[4] = new Student("Kari","Pettersen", Studium.Data);     // Kari Pettersen
+        int[] posisjon = {1,2,3,4,5,6,7,10,11,13,14,22,23,28,29};
+        Integer[] verdi = {1,3,5,7,6,8,11,12,10,10,15,14,18,15,20};
 
-        Tabell.innsettingssortering(s,
-                (s1,s2) ->
-                {
-                    int k = s1.studium().compareTo(s2.studium());
-                    if (k != 0) return k;
-                    k = s1.fornavn().compareTo(s2.fornavn());
-                    if (k != 0) return k;
-                    return s1.etternavn().compareTo(s2.etternavn());
-                }
-        );
-        for (Student t : s) System.out.println(t);
+        BinTre<Integer> tre = new BinTre<>(posisjon, verdi);  // Bruker en konstruktør
+
+        Comparator<Integer> c = Comparator.naturalOrder();
+        System.out.println(tre.erMintre(c));  // Utskrift: true
+
+        // en node med verdi 19 legges som høyre barn til noden med verdi 20
+        tre.leggInn(59,19);
+        System.out.println(tre.erMintre(c));  // Utskrift: false
     }
  }
 
